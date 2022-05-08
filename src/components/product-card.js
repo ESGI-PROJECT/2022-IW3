@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
+import { getCart } from '../api/products';
 
 export class ProductCard extends Base {
   constructor() {
@@ -22,10 +23,15 @@ export class ProductCard extends Base {
       this.loaded = true;
     });
   }
+  async handleAddToCart() {
+    console.log('add');
+    let cart = await getCart();
+  }
 
   render() {
     return html`
-      <a href="/product/${this.product.id}" class="card">
+    <div class="card">
+    <a href="/product/${this.product.id}" >
         <header>
           <figure>
             <div class="placeholder ${this.loaded ? 'fade' : ''}" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
@@ -42,7 +48,9 @@ export class ProductCard extends Base {
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
         </main>
-      </a> 
+        </a> 
+        <button class='button'  @click="${this.handleAddToCart}">Add to card</button>
+      </div>
     `;
   }
 }
