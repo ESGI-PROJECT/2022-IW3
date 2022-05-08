@@ -1,6 +1,8 @@
 import { openDB } from 'idb';
 
 const STORE_NAME = "Products";
+const STORE_CART = "Carts";
+
 export function initDB() {
   return openDB("Nozama", 1, {
     upgrade(db) {
@@ -9,12 +11,18 @@ export function initDB() {
         // The 'id' property of the object will be the key.
         keyPath: "id",
       });
+      const storeCart = db.createObjectStore(STORE_CART, {
+        keyPath: "id"
+      });
       // Create an index on the 'date' property of the objects.
       store.createIndex("id", "id");
       store.createIndex("category", "category");
+      storeCart.createIndex("id", "id");
+      storeCart.createIndex("product", "product");
     },
   });
 }
+
 
 export async function setRessources(data) {
   const db = await initDB();
@@ -33,9 +41,21 @@ export async function setRessource(data) {
   return db.getFromIndex(STORE_NAME, "id", data.id);
 }
 
+export async function setRessourceCart(data) {
+  const db = await initDB();
+  const tx = db.transaction(STORE_CART, "readwrite");
+  await tx.store.put(data);
+  return db.getFromIndex(STORE_CART, "id", data.id);
+}
+
 export async function getRessources() {
   const db = await initDB();
   return db.getAllFromIndex(STORE_NAME, "id");
+}
+
+export async function getRessourcesCart() {
+  const db = await initDB();
+  return db.getAllFromIndex(STORE_CART, "id");
 }
 
 export async function getRessourcesFromIndex(indexName) {
@@ -51,4 +71,9 @@ export async function getRessource(id) {
 export async function unsetRessource(id) {
   const db = await initDB();
   await db.delete(STORE_NAME, id);
+};
+
+export async function unsetRessourceCart(id) {
+  const db = await initDB();
+  await db.delete(STORE_CART, id);
 };

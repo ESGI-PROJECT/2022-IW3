@@ -1,9 +1,10 @@
 import page from 'page';
 import checkConnectivity from 'network-latency';
-import { setRessources, setRessource, getRessources, getRessource } from './idbHelper';
+import { setRessources, setRessource, getRessources, getRessource, getRessourcesCart, unsetRessourceCart } from './idbHelper';
 
 import { getProducts, getProduct } from './api/products';
 import "./views/app-home";
+import "./views/app-cart";
 
 (async (root) => {
   const skeleton = root.querySelector('.skeleton');
@@ -29,12 +30,14 @@ import "./views/app-home";
 
   const AppHome = main.querySelector('app-home');
   const AppProduct = main.querySelector('app-product');
+  const AppCart = main.querySelector('app-cart');
 
   page('*', (ctx, next) => {
     skeleton.removeAttribute('hidden');
 
     AppHome.active = false;
     AppProduct.active = false;
+    AppCart.active = false;
 
     next();
   });
@@ -75,6 +78,16 @@ import "./views/app-home";
     AppProduct.active = true;
     skeleton.setAttribute('hidden', '');
   });
+
+  page('/carts', async () => {
+    await import('./views/app-cart.js');
+    const products = await getRessourcesCart();
+
+    AppCart.products = products;
+
+    AppCart.active = true;
+    skeleton.setAttribute('hidden', '');
+  })
 
   page();
 

@@ -1,3 +1,8 @@
+.fa-shopping-cart {
+  color: white;
+  margin-left: 100%;
+}
+
 .card {
   position: relative;
   display: block;
@@ -7,6 +12,31 @@
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0px 1px 2px 0px hsla(0, 0%, 0%, 0.44);
+}
+
+#container {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5%;
+}
+
+#product-title {
+  font-size: 1em;
+}
+
+#description-product {
+  width: 25%;
+}
+
+#quantity {
+  height: 5%;
+  width: 3%;
+}
+
+.card-contenu {
+  text-decoration: none;
+  color: inherit;
 }
 
 .card header {
