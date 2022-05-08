@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { Base } from '../Base';
+import { updateCart, getCart } from '../api/cart';
 
 export class AppProduct extends Base {
   constructor() {
@@ -24,6 +25,17 @@ export class AppProduct extends Base {
     });
   }
 
+  async add() {
+    const cart = await getCart();
+    updateCart({
+      ...cart,
+      items: [
+        ...(cart.items || []),
+        this.product
+      ]
+    });
+  }
+
   render() {
     return html`
       <section class="product">
@@ -42,6 +54,7 @@ export class AppProduct extends Base {
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
+          <button @click="${this.add}">Ajouter au panier</button>
         </main>
       </section>
     `;
