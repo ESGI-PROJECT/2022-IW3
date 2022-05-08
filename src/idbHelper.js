@@ -8,6 +8,7 @@ export function initDB() {
       const store = db.createObjectStore(STORE_NAME, {
         // The 'id' property of the object will be the key.
         keyPath: "id",
+        //Id en dur a mettre
       });
       // Create an index on the 'date' property of the objects.
       store.createIndex("id", "id");
