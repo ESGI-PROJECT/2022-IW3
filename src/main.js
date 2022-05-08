@@ -76,6 +76,8 @@ import "./views/app-home";
     skeleton.setAttribute('hidden', '');
   });
 
+  var productTable = "products";
+
   page();
 
 })(document.querySelector('#app'));

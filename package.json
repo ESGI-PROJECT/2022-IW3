@@ -2,7 +2,7 @@
   "name": "iw3",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "dev": "npx vite dev --port 8080",
     "database": "npx json-server ./data/db.json --port 3000",

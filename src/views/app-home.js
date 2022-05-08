@@ -15,11 +15,34 @@ export class AppHome extends Base {
     };
   }
 
+
+  //function add products to indexeddb
+  async addProducts() {
+    const db = await this.openDb();
+    const tx = db.transaction('products', 'readwrite');
+    const store = tx.objectStore('products');
+    await store.add(1);
+    await store.add(2);
+
+  }
+
+  // function get products from indexeddb
+  async getProducts() {
+    const db = await this.openDb();
+    const tx = db.transaction('products', 'readwrite');
+    const store = tx.objectStore('products');
+    const products = await store.getAll();
+    this.products = products;
+  }
+
+
   render() {
     return this.products.map(product => html`
       <product-card
         .product="${product}"
-      ></product-card>
+      >
+      <button @click="${this.addProduct}">Add to card</button>
+      </product-card>
     `);
   }
 }
