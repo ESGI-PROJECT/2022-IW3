@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { Base } from '../Base';
+import '../components/add-cart-button';
 
 export class AppProduct extends Base {
   constructor() {
@@ -8,6 +9,7 @@ export class AppProduct extends Base {
     this.product = {};
 
     this.loaded = false;
+    this.networdState = true;
   }
 
   static get properties() {
@@ -15,6 +17,10 @@ export class AppProduct extends Base {
       product: { type: Object },
       loaded: { type: Boolean, state: true }
     }
+  }
+  
+  changeNetworkState(networdState) {
+    this.networdState = networdState;
   }
   
   firstUpdated() {
@@ -42,6 +48,7 @@ export class AppProduct extends Base {
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
+          <add-cart-button .productId=${this.product.id}></button>
         </main>
       </section>
     `;

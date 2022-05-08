@@ -1,6 +1,12 @@
 import { openDB } from 'idb';
 
 const STORE_NAME = "Products";
+const CART_NAME = "Cart";
+const OFFLINE_NAME = "Offline";
+
+const CART_ID = 1;
+const OFFLINE_ID = 1;
+
 export function initDB() {
   return openDB("Nozama", 1, {
     upgrade(db) {
@@ -9,9 +15,25 @@ export function initDB() {
         // The 'id' property of the object will be the key.
         keyPath: "id",
       });
+
       // Create an index on the 'date' property of the objects.
       store.createIndex("id", "id");
       store.createIndex("category", "category");
+      
+      // Create a store of objects
+      const cartStore = db.createObjectStore(CART_NAME, {
+        // The 'id' property of the object will be the key.
+        keyPath: "id",
+      });
+      cartStore.createIndex("id", "id");
+      cartStore.createIndex("products", "products");
+
+      const offlineStore = db.createObjectStore(OFFLINE_NAME, {
+        // The 'id' property of the object will be the key.
+        keyPath: "id",
+      });
+      offlineStore.createIndex("id", "id");
+      offlineStore.createIndex("actions", "actions");
     },
   });
 }
@@ -52,3 +74,27 @@ export async function unsetRessource(id) {
   const db = await initDB();
   await db.delete(STORE_NAME, id);
 };
+
+export async function setCartRessource(data) {
+  const db = await initDB();
+  const tx = db.transaction(CART_NAME, "readwrite");
+  await tx.store.put(data);
+  return db.getFromIndex(CART_NAME, "id", CART_ID);
+}
+
+export async function getCartRessources() {
+  const db = await initDB();
+  return db.getFromIndex(CART_NAME, "id", CART_ID);
+}
+
+export async function setOfflineRessource(data) {
+  const db = await initDB();
+  const tx = db.transaction(OFFLINE_NAME, "readwrite");
+  await tx.store.put(data);
+  return db.getFromIndex(OFFLINE_NAME, "id", OFFLINE_ID);
+}
+
+export async function getOfflineRessources() {
+  const db = await initDB();
+  return db.getFromIndex(OFFLINE_NAME, "id", OFFLINE_ID);
+}

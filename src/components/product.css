@@ -37,6 +37,7 @@
 
 .card main {
   padding: 0.25rem 0.5rem;
+  padding-bottom: 60px;
 }
 .card main h1 {
   font-weight: 500;
@@ -76,4 +77,42 @@
 @-webkit-keyframes fadeout {
   from { opacity: 1; }
   to   { opacity: 0; }
+}
+
+.productCard {
+  position: relative;
+}
+.productCard .btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.cartProduct {
+  padding: 10px;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 20px;
+  border: 0;
+  border-radius: 20px;
+}
+
+.btn-primary {
+  background-color: var(--app-bg-color);
+  color: white;
+}
+
+.btn-delete {
+  background-color: rgb(183, 21, 21);
+  color: white;
+}
+
+input[type=number] {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  max-width: 50px;
 }
