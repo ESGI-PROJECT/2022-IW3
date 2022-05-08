@@ -47,7 +47,24 @@
   font-size: 0.75rem;
   color: #6D6D6D;
 }
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: grey;
+  border: none;
+  border-radius: 15px;
 
+}
+.center {
+  text-align: center;
+  margin-bottom: 10px;
+}
 /**
   * Persist animation using : animation-fill-mode set to forward 
   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode

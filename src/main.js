@@ -3,6 +3,7 @@ import checkConnectivity from 'network-latency';
 import { setRessources, setRessource, getRessources, getRessource } from './idbHelper';
 
 import { getProducts, getProduct } from './api/products';
+import { getCart, addProductToCart, getProductQuantityInCart, updateProductToCart } from './api/cart';
 import "./views/app-home";
 
 (async (root) => {
@@ -29,12 +30,14 @@ import "./views/app-home";
 
   const AppHome = main.querySelector('app-home');
   const AppProduct = main.querySelector('app-product');
+  const AppCart = main.querySelector('app-cart');
 
   page('*', (ctx, next) => {
     skeleton.removeAttribute('hidden');
 
     AppHome.active = false;
     AppProduct.active = false;
+    AppCart.active = false;
 
     next();
   });
@@ -76,6 +79,40 @@ import "./views/app-home";
     skeleton.setAttribute('hidden', '');
   });
 
+  page('/cart/add/:id', async ({params}) => {
+    const itemExist = await getProductQuantityInCart(1, params.id);
+    if (itemExist) {
+      await updateProductToCart(1, itemExist[1], params.id, itemExist[0] + 1);
+    }else {
+      await addProductToCart(1, params.id);
+    }
+    location.pathname = '/';
+  });
+
+
+  page('/cart', async() => {
+    await import('./views/app-cart.js');
+    let cart = await getCart(1);
+    /*let storedCart = [];
+    let test = [];
+    await cart.forEach(async (test2) => {
+      let product = await getProduct(test2.item.id);
+      product.quantity = test2.item.quantity;
+      test.push(product);
+    });
+    if (NETWORK_STATE) {
+      const cart = await getCart(1);
+      storedCart = await setRessources(cart);
+    } else {
+      storedCart = await getRessources();
+    }*/
+
+
+    AppCart.cart = cart;
+    AppCart.active = true;
+
+    skeleton.setAttribute('hidden', '');
+  });
   page();
 
 })(document.querySelector('#app'));

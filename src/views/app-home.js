@@ -20,6 +20,11 @@ export class AppHome extends Base {
       <product-card
         .product="${product}"
       ></product-card>
+      <div class="center">
+      <form action="/cart/add/${product.id}">
+        <button type="submit" class="button">Add to cart</button>
+      </form>
+      </div>
     `);
   }
 }
