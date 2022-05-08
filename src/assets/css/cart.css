@@ -1,0 +1,28 @@
+.cart table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+.cart table td, .cart table th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.cart button {
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    background-color: royalblue;
+    color: white;
+    border: none;
+}
+
+.cart .actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}

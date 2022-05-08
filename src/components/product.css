@@ -48,6 +48,23 @@
   color: #6D6D6D;
 }
 
+.add-to-cart {
+  padding: 10px 20px 10px 20px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  margin-top: 20px;
+  background-color: royalblue;
+  color: white;
+  border: none;
+}
+
+
+#quantity {
+  padding: 10px 10px 10px 10px;
+  text-align: center;
+  margin-right: 10px;
+}
+
 /**
   * Persist animation using : animation-fill-mode set to forward 
   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode

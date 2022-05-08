@@ -12,6 +12,21 @@ h1 {
   margin: 0;
   padding: 0;
 }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+table td {
+  border: none;
+  text-align: left;
+  padding: 8px;
+  bottom: 1px solid #ddd;
+}
+
 #app > header {
   text-align: center;
   position: sticky;
