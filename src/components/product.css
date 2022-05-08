@@ -1,12 +1,17 @@
 .card {
   position: relative;
-  display: block;
+  display: inline-block;
   text-decoration: none;
   color: inherit;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0px 1px 2px 0px hsla(0, 0%, 0%, 0.44);
+  width: 30%;
+  margin: 1.5%;
+  padding: 10px 0px 20px 0px;
+  height: auto;
+
 }
 
 .card header {
@@ -18,10 +23,12 @@
 
 .card img {
   display: block;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: white;
   width: 100%;
   height: auto;
   max-height: 30vh;
+  margin-bottom: 10px;
 }
 
 .card header .placeholder {
@@ -41,11 +48,18 @@
 .card main h1 {
   font-weight: 500;
   font-size: 1.2rem;
+  text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
 }
 .card main p {
   padding-top: 0.25rem;
   font-size: 0.75rem;
+  height: 40px;
   color: #6D6D6D;
+  text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
 }
 
 /**
@@ -76,4 +90,120 @@
 @-webkit-keyframes fadeout {
   from { opacity: 1; }
   to   { opacity: 0; }
+}
+
+.add-to-cart {
+  padding: 10px 20px 10px 20px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  margin-top: 20px;
+  background-color: royalblue;
+  color: white;
+  border: none;
+}
+
+
+#quantity {
+  padding: 10px 20px 10px 10px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+
+/*
+.cart-table, .cart-title {
+  padding-left: 5%;
+}
+.cart-table th, td{
+  width: 25%;
+  padding: 20px;
+  text-align: left;
+}
+
+.cart-table {
+  margin-top: 40px;
+}
+
+.product-tr{ 
+  box-shadow: 0px 1px 1px 0px hsla(0, 0%, 0%, 0.44);
+}
+
+.cart-table .img-cart {
+  width: 1%;
+}
+
+
+.table-cart-th-img{
+  border: 1px solid black;
+  width:100px;
+  margin-top: 20px;
+}
+
+.table-cart-th-product{
+  border: 1px solid black;
+  width:900px;
+  margin-top: 20px;
+}*/
+
+
+
+.title-th, .total-th{
+  width: 20%;
+}
+
+.product-th {
+  width: 60%;
+}
+
+.cart-table td{
+  padding: 20px;
+  vertical-align:top;
+}
+
+.title-th, .product-th, .price-th{
+  padding: 20px;
+  vertical-align:top;
+}
+
+.cart-table {
+  width: 100%;
+}
+
+.img-td {
+  text-align: center;
+}
+
+.delete-product {
+  text-decoration: none;
+  color: red;
+}
+
+.delete-product:hover {
+  border-bottom: 2px solid red;
+  color: red;
+}
+
+.price-td, .price-th{
+  text-align: right;
+}
+
+.cart-table tr{
+  border: 1px solid black;
+}
+
+.cart-title {
+  padding-left:100px;
+  padding-top: 60px;
+}
+
+.total-cart {
+  width: 100%;
+  /*border : 1px solid black;*/
+  text-align: right;
+  padding: 20px;
+}
+
+.total-cart-amout-td {
+  padding-top: 20px;
+  font-size: 23px;
 }

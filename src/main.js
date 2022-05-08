@@ -4,7 +4,7 @@ import { setRessources, setRessource, getRessources, getRessource } from './idbH
 
 import { getProducts, getProduct } from './api/products';
 import "./views/app-home";
-
+import { getCart } from './api/cart';
 (async (root) => {
   const skeleton = root.querySelector('.skeleton');
   const main = root.querySelector('main');
@@ -27,6 +27,7 @@ import "./views/app-home";
     }
   });
 
+  const AppCart = main.querySelector('app-cart');
   const AppHome = main.querySelector('app-home');
   const AppProduct = main.querySelector('app-product');
 
@@ -35,6 +36,7 @@ import "./views/app-home";
 
     AppHome.active = false;
     AppProduct.active = false;
+    AppCart.active = false;
 
     next();
   });
@@ -76,6 +78,14 @@ import "./views/app-home";
     skeleton.setAttribute('hidden', '');
   });
 
-  page();
 
+  page('/cart', async () => {
+    await import('./views/app-cart.js');
+    const cart = await getCart();
+    AppCart.cart = cart;
+    AppCart.active = true;
+    skeleton.setAttribute('hidden', '');
+  });
+
+  page();
 })(document.querySelector('#app'));
