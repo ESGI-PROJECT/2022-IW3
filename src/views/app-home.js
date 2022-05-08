@@ -19,6 +19,8 @@ export class AppHome extends Base {
     return this.products.map(product => html`
       <product-card
         .product="${product}"
+        .editable="${false}"
+        .addable="${true}"
       ></product-card>
     `);
   }

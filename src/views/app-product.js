@@ -1,5 +1,7 @@
 import { html } from 'lit';
 import { Base } from '../Base';
+import {setCartRessource} from "../idbHelper";
+import Noty from 'noty';
 
 export class AppProduct extends Base {
   constructor() {
@@ -24,6 +26,27 @@ export class AppProduct extends Base {
     });
   }
 
+  async addToCart() {
+    await setCartRessource({
+      "cartId": 1,
+      "productId": this.product.id,
+    });
+
+    new Noty({
+      type: 'success',
+      layout: 'topRight',
+      theme: 'relax',
+      text: 'New item added to cart',
+      timeout: 3000,
+      progressBar: true,
+      closeWith: ['click', 'button'],
+      animation: {
+        open : 'animated fadeInRight',
+        close: 'animated fadeOutRight'
+      }
+    }).show();
+  }
+
   render() {
     return html`
       <section class="product">
@@ -40,6 +63,9 @@ export class AppProduct extends Base {
           </figure>
         </header>
         <main>
+          <div style="float: right">
+            <button id="${this.product.id}" @click="${this.addToCart}" class="addToCardBtn">AddToCart</button>
+          </div>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
         </main>
