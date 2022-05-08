@@ -1,50 +1,57 @@
 import { html } from 'lit';
 import { Base } from '../Base';
+import { getRessource, setRessource } from "../idbHelper";
 
 export class AppProduct extends Base {
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-    this.product = {};
-
-    this.loaded = false;
-  }
-
-  static get properties() {
-    return {
-      product: { type: Object },
-      loaded: { type: Boolean, state: true }
+        this.product = {};
+        this.loaded = true;
     }
-  }
-  
-  firstUpdated() {
-    const image = this.querySelector('img');
-    image.addEventListener('load', () => {
-      this.loaded = true;
-    });
-  }
 
-  render() {
-    return html`
-      <section class="product">
-        <header>
-          <figure>
-            <div class="placeholder ${this.loaded ? 'fade' : ''}" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
-            <img
-              loading="lazy"
-              src="http://localhost:9000/image/500/${this.product.image}"
-              alt="${this.product.description}"
-              data-src="http://localhost:9000/image/500/${this.product.image}"
-              width="1280"
-              height="720">
-          </figure>
-        </header>
-        <main>
-          <h1>${this.product.title}</h1>
-          <p>${this.product.description}</p>
-        </main>
-      </section>
-    `;
-  }
+    static get properties() {
+        return {
+            product: {type: Object},
+            loaded: {type: Boolean},
+        };
+    }
+
+    async addToCart() {
+        const {id} = this.product;
+        const item = await getRessource('Cart', id);
+
+        if (item) {
+            const data = {...item, quantity: item.quantity + 1}
+            await setRessource('Cart', data);
+        } else {
+            const data = {...this.product, quantity: 1}
+            await setRessource('Cart', data);
+        }
+    }
+
+    render() {
+        return html`
+            <section class="product">
+                <header>
+                    <figure>
+                        <div class="placeholder ${this.loaded ? 'fade' : ''}"
+                             style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
+                        <img
+                                alt="${this.product.title}"
+                                src="http://localhost:9000/image/620/${this.product.image}"
+                                loading="lazy"
+                                width="1280" height="720">
+                    </figure>
+                </header>
+                <main>
+                    <h1>${this.product.title}</h1>
+                    <p>${this.product.description}</p>
+                    <button class="btn btn-dark" @click="${this.addToCart}">Add to cart</button>
+                </main>
+            </section>
+        `;
+    }
 }
+
 customElements.define('app-product', AppProduct);

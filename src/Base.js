@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement } from 'lit';
 
 export class Base extends LitElement {
   createRenderRoot() {

@@ -1,4 +1,4 @@
-import { createRequest } from './api';
+import { createRequest } from "./api.js"
 
 const request = createRequest();
 
@@ -13,3 +13,4 @@ export function getProduct(productId) {
     .then(({ data }) => data)
     .catch(console.error);
 }
+
