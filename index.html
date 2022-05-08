@@ -28,6 +28,20 @@
       text-decoration: none;
       color: inherit;
     }
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    #title{
+      display: flex;
+      justify-content: flex-end;
+      width: 15rem;
+      margin-right: 1rem;
+    }
+    .cart{
+      width: 5rem;
+    }
     #app > header {
       text-align: center;
       position: sticky;
@@ -106,13 +120,14 @@
 </head>
 <body>
   <section id="app">
-    <header>
-      <h1><a href="/">Nozama shop 🛍</a></h1>
-      <img src="" alt="">
+    <header class="navbar">
+      <h1 id="title"><a href="/">Nozama shop </a></h1>
+      <h1 class="cart"><a href="/cart">🛍</a></h1>
     </header>
     <main>
       <app-home page></app-home>
       <app-product page></app-product>
+      <app-cart page></app-cart>
 
       <div class="skeleton">
         <div class="hero"></div>
