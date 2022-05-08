@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { html } from 'lit';
 import { Base } from '../Base';
 import "../components/product-card";
 

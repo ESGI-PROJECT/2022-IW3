@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { html } from 'lit';
 import { Base } from '../Base';
 
 export class ProductCard extends Base {
@@ -9,6 +9,7 @@ export class ProductCard extends Base {
 
     this.loaded = false;
   }
+
   static get properties() {
     return {
       product: { type: Object },
@@ -42,7 +43,8 @@ export class ProductCard extends Base {
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
         </main>
-      </a> 
+      </a>
+      <button type="submit" class="addCard mt-0" @click="${this.addProductToCart}">Add to cart</button>
     `;
   }
 }
