@@ -42,14 +42,15 @@
   font-weight: 500;
   font-size: 1.2rem;
 }
-.card main p {
+.card main p,
+.card main a {
   padding-top: 0.25rem;
   font-size: 0.75rem;
   color: #6D6D6D;
 }
 
 /**
-  * Persist animation using : animation-fill-mode set to forward 
+  * Persist animation using : animation-fill-mode set to forward
   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode
   */
 .fade {
