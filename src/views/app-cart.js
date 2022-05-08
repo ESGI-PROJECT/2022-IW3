@@ -7,7 +7,6 @@ export class Cart extends Base {
     super();
 
     this.products = [];
-    this.testValue;
 
     this.loaded = false;
   }
@@ -94,22 +93,6 @@ export class Cart extends Base {
   }
 
   /**
-   * Update price of product
-   * @param {object} data Product data
-   */
-  updatePrice(data) {
-    this.testValue = "toto";
-    console.log(this.testValue);
-    const price = document.getElementById("price");
-    // if (price != null || price !== undefined) {
-    //   if (price.childNodes[5]) {
-    //     price.childNodes[5].childNodes[1].innerText = `Price : ${Math.round(data.product.price * data.total)} $`;
-    //   }
-    // }
-    this.render("toto");
-  }
-
-  /**
    * Method trigger for each select changes
    * - Update products total value according to option selected
    * @param {object} data Product data
@@ -154,10 +137,9 @@ export class Cart extends Base {
       );
     }
 
-    this.updatePrice(data);
   }
 
-  render(test) {
+  render() {
     this.loaded = true;
     const skeleton = document.querySelector('.skeleton');
 
@@ -187,7 +169,7 @@ export class Cart extends Base {
           </div>
         </div>
         <div class="Footer">
-          <h3 class="Footering mb-3" id="price">Price : ${test}</h3>
+          <h3 class="Footering mb-3" id="price">Price : ${this.getPrice(data)}</h3>
         </div>
       </div>
     `);
