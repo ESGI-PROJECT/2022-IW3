@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  node:
+    container_name: node_pwa
+    image: node:17.0.0-alpine
+    user: node
+    working_dir: /home/node
+    entrypoint: node
+    tty: true
+    ports:
+      - 8000:8000
+    stdin_open: true
+    volumes:
+      - .:/home/node

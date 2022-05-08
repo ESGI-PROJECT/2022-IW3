@@ -1,22 +1,22 @@
 function html(strings, ...values) {
-  let str = '';
-  strings.forEach((string, i) => {
-      str += string + (values[i] || '');
-  });
-  return str;
+    let str = '';
+    strings.forEach((string, i) => {
+        str += string + (values[i] || '');
+    });
+    return str;
 }
 
 export default {
-  name: 'Product',
-  props: {
-    id: null,
-    title: "",
-    description: "",
-    image: ""
-  },
-  render() {
-    const template = document.createElement('div');
-    template.innerHTML = html`
+    name: 'Product',
+    props: {
+        id: null,
+        title: "",
+        description: "",
+        image: ""
+    },
+    render() {
+        const template = document.createElement('div');
+        template.innerHTML = html `
       <section class="card">
         <header>
           <figure>
@@ -36,8 +36,8 @@ export default {
         </main>
       </section>
     `;
-    const card = template.querySelector('.card');
-    card.querySelector("img").addEventListener('load', ({ target }) => target.parentNode.querySelector('.placeholder').classList.add('fade'))
-    return card;
-  }
+        const card = template.querySelector('.card');
+        card.querySelector("img").addEventListener('load', ({ target }) => target.parentNode.querySelector('.placeholder').classList.add('fade'))
+        return card;
+    }
 }

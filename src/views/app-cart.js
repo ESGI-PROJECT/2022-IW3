@@ -1,8 +1,9 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
-import "../components/product-card";
+import "../components/product-cart";
 
-export class AppHome extends Base {
+
+export class AppChart extends Base {
     constructor() {
         super();
 
@@ -18,12 +19,13 @@ export class AppHome extends Base {
     }
 
     render() {
+        console.log(this.products);
         return this.products.map(product => html `
-      <product-card
-        .product="${product}"
+      <product-cart
+        .product="${product}" 
         .network="${this.network}"
-      ></product-card>
+      ></product-cart>
     `);
     }
 }
-customElements.define('app-home', AppHome);
+customElements.define('app-chart', AppChart);
