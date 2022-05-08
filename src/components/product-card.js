@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { handleAddToCart } from '../helpers/helper';
 import { Base } from '../Base';
 
 export class ProductCard extends Base {
@@ -25,24 +26,27 @@ export class ProductCard extends Base {
 
   render() {
     return html`
-      <a href="/product/${this.product.id}" class="card">
-        <header>
-          <figure>
-            <div class="placeholder ${this.loaded ? 'fade' : ''}" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
-            <img
-              loading="lazy"
-              src="http://localhost:9000/image/500/${this.product.image}"
-              alt="${this.product.description}"
-              data-src="http://localhost:9000/image/500/${this.product.image}"
-              width="1280"
-              height="720">
-          </figure>
-        </header>
-        <main>
-          <h1>${this.product.title}</h1>
-          <p>${this.product.description}</p>
-        </main>
-      </a> 
+      <div class="card">
+        <a href="/product/${this.product.id}">
+          <header>
+            <figure>
+              <div class="placeholder ${this.loaded ? 'fade' : ''}" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
+              <img
+                loading="lazy"
+                src="http://localhost:9000/image/500/${this.product.image}"
+                alt="${this.product.description}"
+                data-src="http://localhost:9000/image/500/${this.product.image}"
+                width="1280"
+                height="720">
+            </figure>
+          </header>
+          <main>
+            <h1>${this.product.title}</h1>
+            <p>${this.product.description}</p>
+          </main>
+        </a>
+        <button data-id="${this.product.id}" @click="${handleAddToCart}" class="add-to-cart">Add to cart<button>
+      </div>
     `;
   }
 }

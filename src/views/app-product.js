@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { Base } from '../Base';
+import { handleAddToCart } from '../helpers/helper';
 
 export class AppProduct extends Base {
   constructor() {
@@ -43,6 +44,7 @@ export class AppProduct extends Base {
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
         </main>
+        <button data-id="${this.product.id}" @click="${handleAddToCart}" class="add-to-cart">Add to cart<button>
       </section>
     `;
   }
