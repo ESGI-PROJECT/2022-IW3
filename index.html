@@ -34,8 +34,9 @@
       top: 0;
       background-color: var(--app-bg-color);
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
+      padding: 0 20px;
       height: 56px;
       color: #ffffff;
       z-index: 10;
@@ -95,6 +96,11 @@
     [page][active] {
       display: block;
     }
+
+    .cartButton button {
+      background-color: transparent;
+      border: none;
+    }
   </style>
   <script src="./src/main.js" type="module" defer></script>
 
@@ -108,11 +114,12 @@
   <section id="app">
     <header>
       <h1><a href="/">Nozama shop 🛍</a></h1>
-      <img src="" alt="">
+      <cart-button></cart-button>
     </header>
     <main>
       <app-home page></app-home>
       <app-product page></app-product>
+      <app-cart page></app-cart>
 
       <div class="skeleton">
         <div class="hero"></div>

@@ -1,9 +1,13 @@
 import page from 'page';
 import checkConnectivity from 'network-latency';
-import { setRessources, setRessource, getRessources, getRessource } from './idbHelper';
+import { setRessources, setRessource, getRessources, getRessource, setCartRessource, getCartRessources } from './idbHelper';
 
 import { getProducts, getProduct } from './api/products';
 import "./views/app-home";
+import './components/cart-button';
+import { getCart } from './api/cart';
+import { clearOfflineData, getOfflineData } from './api/offline';
+import { OfflineManager } from './components/OfflineManager.js';
 
 (async (root) => {
   const skeleton = root.querySelector('.skeleton');
@@ -17,18 +21,44 @@ import "./views/app-home";
 
   let NETWORK_STATE = true;
 
+  const AppHome = main.querySelector('app-home');
+  const AppProduct = main.querySelector('app-product');
+  const AppCart = document.body.querySelector('app-cart');
+
+  let activeApp = null;
+
+  async function refreshOfflineData() {
+    const offlineData = await getOfflineData();
+    if (NETWORK_STATE) {
+      await import('./components/OfflineManager.js');
+
+      if (offlineData.actions.length) {
+        const offlineManager = new OfflineManager();
+        offlineData.actions.forEach(action => {
+          if (action.source === 'cart') {
+            offlineManager.addAction(action);
+          }
+        });
+        offlineManager.processActions();
+      }
+    }
+  }
+
+
+  refreshOfflineData();
   document.addEventListener('connection-changed', ({ detail: state }) => {
     NETWORK_STATE = state;
+    if (activeApp && typeof activeApp.changeNetworkState === 'function') {
+      activeApp.changeNetworkState(NETWORK_STATE);
+    }
 
     if (state) {
       document.documentElement.style.setProperty('--app-bg-color', 'royalblue');
+      refreshOfflineData();
     } else {
       document.documentElement.style.setProperty('--app-bg-color', '#858994');
     }
   });
-
-  const AppHome = main.querySelector('app-home');
-  const AppProduct = main.querySelector('app-product');
 
   page('*', (ctx, next) => {
     skeleton.removeAttribute('hidden');
@@ -52,9 +82,9 @@ import "./views/app-home";
     }
 
     AppHome.products = storedProducts;
-
     AppHome.active = true;
 
+    activeApp = AppHome;
     skeleton.setAttribute('hidden', '');
   });
 
@@ -71,8 +101,39 @@ import "./views/app-home";
     }
 
     AppProduct.product = storedProduct;
-
     AppProduct.active = true;
+
+    activeApp = AppProduct;
+    skeleton.setAttribute('hidden', '');
+  });
+
+  page('/cart', async ({ params }) => {
+    await import('./views/app-cart.js');
+
+    const cartProducts = [];
+    let storedProducts = [];
+    let storedCart = {};
+    
+    if (NETWORK_STATE) {
+      const cart = await getCart();
+
+      for (let index in cart.products) {
+        const productId = cart.products[index];
+        const product = await getProduct(productId);
+        cartProducts.push(product);
+      }
+
+      storedCart = await setCartRessource(cart);
+    } else {
+      storedProducts = await getRessources();
+      storedCart = await getCartRessources();
+    }
+
+    AppCart.products = cartProducts;
+    AppCart.networdState = NETWORK_STATE;
+    AppCart.active = true;
+    
+    activeApp = AppCart;
     skeleton.setAttribute('hidden', '');
   });
 

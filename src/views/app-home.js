@@ -7,12 +7,20 @@ export class AppHome extends Base {
     super();
 
     this.products = [];
+    this.networdState = true;
   }
 
   static get properties() {
     return {
       products: { type: Array },
     };
+  }
+
+  changeNetworkState(networdState) {
+    this.networdState = networdState;
+    this.querySelectorAll('add-cart-button').forEach(addCartButton => {
+      addCartButton.changeNetworkState(networdState);
+    })
   }
 
   render() {

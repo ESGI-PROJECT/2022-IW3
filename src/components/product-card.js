@@ -1,12 +1,12 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
+import './add-cart-button';
 
 export class ProductCard extends Base {
   constructor() {
     super();
 
     this.product = {};
-
     this.loaded = false;
   }
   static get properties() {
@@ -25,24 +25,27 @@ export class ProductCard extends Base {
 
   render() {
     return html`
-      <a href="/product/${this.product.id}" class="card">
-        <header>
-          <figure>
-            <div class="placeholder ${this.loaded ? 'fade' : ''}" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
-            <img
-              loading="lazy"
-              src="http://localhost:9000/image/500/${this.product.image}"
-              alt="${this.product.description}"
-              data-src="http://localhost:9000/image/500/${this.product.image}"
-              width="1280"
-              height="720">
-          </figure>
-        </header>
-        <main>
-          <h1>${this.product.title}</h1>
-          <p>${this.product.description}</p>
-        </main>
-      </a> 
+      <div class="productCard">
+        <a href="/product/${this.product.id}" class="card">
+          <header>
+            <figure>
+              <div class="placeholder ${this.loaded ? 'fade' : ''}" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
+              <img
+                loading="lazy"
+                src="http://localhost:9000/image/500/${this.product.image}"
+                alt="${this.product.description}"
+                data-src="http://localhost:9000/image/500/${this.product.image}"
+                width="1280"
+                height="720">
+            </figure>
+          </header>
+          <main>
+            <h1>${this.product.title}</h1>
+            <p>${this.product.description}</p>
+          </main>
+        </a>
+        <add-cart-button .productId=${this.product.id}></add-cart-button>
+      </div>
     `;
   }
 }
