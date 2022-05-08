@@ -29,12 +29,14 @@ import "./views/app-home";
 
   const AppHome = main.querySelector('app-home');
   const AppProduct = main.querySelector('app-product');
+  const AppCart = main.querySelector('app-cart')
 
   page('*', (ctx, next) => {
     skeleton.removeAttribute('hidden');
 
     AppHome.active = false;
     AppProduct.active = false;
+    AppCart.active = false;
 
     next();
   });
@@ -43,7 +45,7 @@ import "./views/app-home";
     const products = await getProducts();
 
     let storedProducts = []
-    
+
     if (NETWORK_STATE) {
       const products = await getProducts();
       storedProducts = await setRessources(products);
@@ -74,6 +76,11 @@ import "./views/app-home";
 
     AppProduct.active = true;
     skeleton.setAttribute('hidden', '');
+  });
+  page("/cart", async ({ }) => {
+    await import('./views/app-cart.js');
+    AppCart.active = true;
+
   });
 
   page();
