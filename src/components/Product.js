@@ -33,6 +33,7 @@ export default {
         <main>
           <h1>${this.props.title}</h1>
           <p>${this.props.description}</p>
+          
         </main>
       </section>
     `;

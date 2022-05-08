@@ -1,6 +1,7 @@
 import { openDB } from 'idb';
 
 const STORE_NAME = "Products";
+const CART_NAME = "Cart";
 export function initDB() {
   return openDB("Nozama", 1, {
     upgrade(db) {
@@ -12,6 +13,13 @@ export function initDB() {
       // Create an index on the 'date' property of the objects.
       store.createIndex("id", "id");
       store.createIndex("category", "category");
+
+      // Create a store of objects
+      const storeCart = db.createObjectStore(CART_NAME, {
+        // The 'id' property of the object will be the key.
+        keyPath: "id",
+      });
+      storeCart.createIndex("products", "products");
     },
   });
 }
@@ -32,6 +40,12 @@ export async function setRessource(data) {
   await tx.store.put(data);
   return db.getFromIndex(STORE_NAME, "id", data.id);
 }
+export async function setRessourceCart(data) {
+  const db = await initDB();
+  const tx = db.transaction(CART_NAME, "readwrite");
+  await tx.storeCart.put(data);
+  return db.getFromIndex(CART_NAME, "id", data.id);
+}
 
 export async function getRessources() {
   const db = await initDB();
@@ -46,6 +60,10 @@ export async function getRessourcesFromIndex(indexName) {
 export async function getRessource(id) {
   const db = await initDB();
   return db.getFromIndex(STORE_NAME, "id", id);
+};
+export async function getRessourceCart() {
+  const db = await initDB();
+  return db.getFromIndex(CART_NAME, "id", id);
 };
 
 export async function unsetRessource(id) {

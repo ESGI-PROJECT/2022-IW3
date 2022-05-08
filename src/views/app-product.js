@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { Base } from '../Base';
+import "../components/add-button";
 
 export class AppProduct extends Base {
   constructor() {
@@ -43,6 +44,7 @@ export class AppProduct extends Base {
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
         </main>
+        <add-button .idProduct=${this.product.id}></add-button>
       </section>
     `;
   }
