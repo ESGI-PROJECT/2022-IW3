@@ -16,7 +16,7 @@ export class AppProduct extends Base {
       loaded: { type: Boolean, state: true }
     }
   }
-  
+
   firstUpdated() {
     const image = this.querySelector('img');
     image.addEventListener('load', () => {
@@ -44,6 +44,7 @@ export class AppProduct extends Base {
           <p>${this.product.description}</p>
         </main>
       </section>
+      <button type="submit" class="addCardProduct" @click="${this.addProductToCart}">Add to cart</button>
     `;
   }
 }

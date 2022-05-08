@@ -1,3 +1,5 @@
+/*** PRODUCT ***/
+
 .product {
   position: relative;
   display: block;
@@ -32,4 +34,230 @@
 .product main,
 .product main p {
   margin-top: 1rem;
+}
+
+/*** CARD ***/
+
+.card {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0px 1px 2px 0px hsla(0, 0%, 0%, 0.44);
+}
+
+.card header {
+  position: relative;
+  min-height: 30vh;
+  padding: 0;
+  background-color: rgba(38, 38, 38, 0.64);
+}
+
+.card img {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  max-height: 30vh;
+}
+
+.card header .placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.card main {
+  padding: 0.25rem 0.5rem;
+}
+
+.card main h1 {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.card main p {
+  padding-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #6D6D6D;
+}
+
+/**
+  * Persist animation using : animation-fill-mode set to forward
+  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode
+  */
+.fade {
+  -webkit-animation: fadeout 2s forwards; /* Safari and Chrome */
+  -moz-animation: fadeout 2s forwards; /* Firefox */
+  -ms-animation: fadeout 2s forwards; /* Internet Explorer */
+  -o-animation: fadeout 2s forwards; /* Opera */
+  animation: fadeout 2s forwards;
+}
+
+/* Key frame animation */
+@keyframes fadeout {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Firefox */
+@-moz-keyframes fadeout {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes fadeout {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.addCard,
+.addCardProduct {
+  margin: 10px 0 15px 0;
+  border: none;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border-radius: 18px;
+  width: 200px;
+  cursor: pointer;
+}
+
+.addCardProduct {
+  margin: 18px 0 15px 0;
+}
+
+.addCard:hover,
+.addCardProduct:hover {
+  opacity: 0.7;
+}
+
+.cartIcon {
+  position: absolute;
+  right: 20px;
+}
+
+/*** GENERAL PROPERTIES ***/
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.mb-3 {
+  margin-bottom: 12px;
+}
+
+/*** APP PRODUCT VIEW ***/
+
+.CartContainer {
+  margin: 15px 0;
+	height: 90%;
+	background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 10px 20px #1687d933;
+}
+
+.CartContainer .Header,
+.CartContainer .Footer {
+	margin: auto;
+	width: 90%;
+	height: 15%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.CartContainer .Heading,
+.CartContainer .Footering {
+  margin-top: 10px;
+  font-size: 20px;
+  font-family: 'Open Sans';
+  font-weight: 700;
+  color: #2F3841;
+}
+
+.CartContainer .Cart-Items {
+    padding: 20px 0;
+	margin: auto;
+	width: 90%;
+	height: 30%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.CartContainer .image-box {
+	width: 100px;
+	text-align: center;
+}
+
+.CartContainer .image-box img {
+  width: 100%;
+}
+
+.CartContainer .about {
+	height: 100%;
+	width: 24%;
+}
+
+.CartContainer .title {
+	padding-top: 10px;
+	font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+	font-family: 'Open Sans';
+	font-weight: 800;
+	color: #202020;
+}
+
+.CartContainer .subtitle {
+	line-height: 10px;
+	font-size: 18px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	color: #909090;
+}
+
+.CartContainer .counter {
+	width: 15%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.CartContainer .prices {
+	height: 100%;
+	text-align: right;
+}
+
+.CartContainer .remove {
+	padding-top: 5px;
+	font-size: 14px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	color: #E44C4C;
+	cursor: pointer;
+}
+
+.CartContainer .remove u {
+  text-decoration: none;
+}
+
+.CartContainer .remove:hover {
+  opacity: 0.6;
+}
+
+.CartContainer #count-select {
+  width: 100%;
+  height: 30px;
 }
