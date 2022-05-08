@@ -44,6 +44,7 @@ export class AppProduct extends Base {
           <p>${this.product.description}</p>
         </main>
       </section>
+      <button class="button button5" @click="${this.addToCart}"> Add to Cart </button>
     `;
   }
 }

@@ -1,9 +1,10 @@
 import page from 'page';
 import checkConnectivity from 'network-latency';
-import { setRessources, setRessource, getRessources, getRessource } from './idbHelper';
+import { setRessources, setRessource, getRessources, getRessource, getCart, setCart } from './idbHelper';
 
 import { getProducts, getProduct } from './api/products';
 import "./views/app-home";
+import {AppCart} from "./views/app-cart";
 
 (async (root) => {
   const skeleton = root.querySelector('.skeleton');
@@ -29,12 +30,14 @@ import "./views/app-home";
 
   const AppHome = main.querySelector('app-home');
   const AppProduct = main.querySelector('app-product');
+  const AppCart = main.querySelector('app-cart');
 
   page('*', (ctx, next) => {
     skeleton.removeAttribute('hidden');
 
     AppHome.active = false;
     AppProduct.active = false;
+    AppCart.active = false;
 
     next();
   });
@@ -73,6 +76,26 @@ import "./views/app-home";
     AppProduct.product = storedProduct;
 
     AppProduct.active = true;
+    skeleton.setAttribute('hidden', '');
+  });
+
+  page('/cart', async () => {
+    await import('./views/app-cart.js');
+
+    const products = await getCart();
+
+    var Data = localStorage.getItem('Data');
+    if (Data) {
+      console.log('Local storage =>', JSON.parse(Data));
+
+    }
+
+    console.log('All product =>', products);
+
+
+    AppCart.products = products;
+
+    AppCart.active = true;
     skeleton.setAttribute('hidden', '');
   });
 
