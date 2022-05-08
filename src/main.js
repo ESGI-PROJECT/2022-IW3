@@ -3,7 +3,9 @@ import checkConnectivity from 'network-latency';
 import { setRessources, setRessource, getRessources, getRessource } from './idbHelper';
 
 import { getProducts, getProduct } from './api/products';
+import { getCart } from './api/cart';
 import "./views/app-home";
+import "./views/app-cart.js";
 
 (async (root) => {
   const skeleton = root.querySelector('.skeleton');
@@ -29,6 +31,7 @@ import "./views/app-home";
 
   const AppHome = main.querySelector('app-home');
   const AppProduct = main.querySelector('app-product');
+  const AppCart = main.querySelector('app-cart');
 
   page('*', (ctx, next) => {
     skeleton.removeAttribute('hidden');
@@ -75,6 +78,21 @@ import "./views/app-home";
     AppProduct.active = true;
     skeleton.setAttribute('hidden', '');
   });
+
+  page('/cart', async () => {
+    await import('./views/app-cart.js');
+
+    const cart = await getCart();
+    let stored_cart = {};
+
+   
+      stored_cart = await getRessources();
+    
+    AppCart.cart = stored_cart;
+
+    AppCart.active = true;
+    skeleton.setAttribute('hidden', '');
+  }); 
 
   page();
 
