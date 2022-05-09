@@ -2,7 +2,7 @@ import page from 'page';
 import checkConnectivity from 'network-latency';
 import { setRessources, setRessource, getRessources, getRessource } from './idbHelper';
 
-import { getProducts, getProduct } from './api/products';
+import {getProducts, getProduct, addToCart} from './api/products';
 import "./views/app-home";
 
 (async (root) => {
@@ -76,6 +76,8 @@ import "./views/app-home";
     skeleton.setAttribute('hidden', '');
   });
 
-  page();
+  page('/add/:id', async ({params}) => {
+    console.log('zgeg')
+  });
 
 })(document.querySelector('#app'));

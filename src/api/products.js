@@ -13,3 +13,9 @@ export function getProduct(productId) {
     .then(({ data }) => data)
     .catch(console.error);
 }
+
+export function addToCart(productId) {
+  return request.put(`/add/${productId}`)
+    .then(({data}) => data)
+    .catch(console.error)
+}
