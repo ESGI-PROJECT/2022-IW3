@@ -1,5 +1,5 @@
-import { html } from 'lit';
-import { Base } from '../Base';
+import { html } from "lit";
+import { Base } from "../Base";
 
 export class AppProduct extends Base {
   constructor() {
@@ -13,13 +13,13 @@ export class AppProduct extends Base {
   static get properties() {
     return {
       product: { type: Object },
-      loaded: { type: Boolean, state: true }
-    }
+      loaded: { type: Boolean, state: true },
+    };
   }
-  
+
   firstUpdated() {
-    const image = this.querySelector('img');
-    image.addEventListener('load', () => {
+    const image = this.querySelector("img");
+    image.addEventListener("load", () => {
       this.loaded = true;
     });
   }
@@ -29,22 +29,33 @@ export class AppProduct extends Base {
       <section class="product">
         <header>
           <figure>
-            <div class="placeholder ${this.loaded ? 'fade' : ''}" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
+            <div
+              class="placeholder ${this.loaded ? "fade" : ""}"
+              style="background-image: url(http://localhost:9000/image/24/${this
+                .product.image})"
+            ></div>
             <img
               loading="lazy"
               src="http://localhost:9000/image/500/${this.product.image}"
               alt="${this.product.description}"
               data-src="http://localhost:9000/image/500/${this.product.image}"
               width="1280"
-              height="720">
+              height="720"
+            />
           </figure>
         </header>
         <main>
           <h1>${this.product.title}</h1>
+          <p class="price">$ ${this.product.price}</p>
           <p>${this.product.description}</p>
         </main>
+        <footer>
+          <button class="cart-btn" @click="${() => addToCart(this.product)}">
+            Add to cart 🛍
+          </button>
+        </footer>
       </section>
     `;
   }
 }
-customElements.define('app-product', AppProduct);
+customElements.define("app-product", AppProduct);
