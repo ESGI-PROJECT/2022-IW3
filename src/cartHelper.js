@@ -25,9 +25,9 @@ document.addEventListener("connection-changed", async ({ detail: state }) => {
   NETWORK_STATE = state;
   const storedCart = await getCart();
 
-  computeCartItem(storedCart);
+  computeCartQty(storedCart);
 
-  if (NETWORK_STATE && storedCart.updated) {
+  if (NETWORK_STATE && storedCart && storedCart.updated) {
     await updateCart(storedCart);
     await setCart({ ...storedCart, updated: 0 });
   }
@@ -63,18 +63,22 @@ export async function addToCart(product) {
 
   await setCart(updatedCart);
 
-  computeCartItem(updatedCart);
+  computeCartQty(updatedCart);
 
-  if (localStorage.getItem("isInstallShowed") != "true") {
+  if (
+    localStorage.getItem("isInstallShowed") != "true" &&
+    !window.matchMedia("(display-mode: standalone)").matches
+  ) {
     setTimeout(() => (dialog.open = true), 2000);
   }
 }
 
 function computeTotal(cart) {
+  computeCartQty(cart);
   return cart.items.reduce((a, item) => a + item.price * item.quantity, 0);
 }
 
-function computeCartItem(cart) {
+function computeCartQty(cart) {
   if (cart) {
     badge.innerHTML = cart.items.reduce(
       (total, { quantity }) => total + quantity,

@@ -12,6 +12,7 @@ import {
 import { getProducts, getProduct } from "./api/products";
 import "./views/app-home";
 import { getCart } from "./api/cart";
+import { getUser } from "./firebase";
 
 (async (root) => {
   const skeleton = root.querySelector(".skeleton");
@@ -38,6 +39,7 @@ import { getCart } from "./api/cart";
   const AppHome = main.querySelector("app-home");
   const AppProduct = main.querySelector("app-product");
   const AppCart = main.querySelector("app-cart");
+  const AppLogin = main.querySelector("app-login");
 
   page("*", async (ctx, next) => {
     skeleton.removeAttribute("hidden");
@@ -58,6 +60,11 @@ import { getCart } from "./api/cart";
       updated: 0,
       ...cartData,
     });
+
+    console.log(getUser());
+    if (!getUser() && ctx.path != "/login") {
+      page("/login");
+    }
 
     next();
   });
@@ -93,7 +100,7 @@ import { getCart } from "./api/cart";
       storedProduct = await getRessource(params.id);
     }
 
-    AppProduct.product = storedProduct;
+    AppProduct.product = { ...storedProduct };
 
     AppProduct.active = true;
     skeleton.setAttribute("hidden", "");
@@ -106,6 +113,13 @@ import { getCart } from "./api/cart";
 
     AppCart.active = true;
     AppCart.cart = storedCart;
+    skeleton.setAttribute("hidden", "");
+  });
+
+  page("/login", async () => {
+    await import("./views/app-login.js");
+
+    AppLogin.active = true;
     skeleton.setAttribute("hidden", "");
   });
 

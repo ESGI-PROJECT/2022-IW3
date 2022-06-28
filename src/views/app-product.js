@@ -1,11 +1,13 @@
 import { html } from "lit";
 import { Base } from "../Base";
+import { readComments, writeComment } from "../firebase";
 
 export class AppProduct extends Base {
   constructor() {
     super();
 
     this.product = {};
+    this.comments = [];
 
     this.loaded = false;
   }
@@ -13,6 +15,7 @@ export class AppProduct extends Base {
   static get properties() {
     return {
       product: { type: Object },
+      comments: { type: Array },
       loaded: { type: Boolean, state: true },
     };
   }
@@ -24,7 +27,26 @@ export class AppProduct extends Base {
     });
   }
 
+  sendComment(event) {
+    event.preventDefault();
+
+    const input = event.target.querySelector("textarea");
+
+    writeComment({
+      productId: this.product.id,
+      comment: event.target.querySelector("textarea").value,
+      user: 1,
+    });
+
+    input.value = "";
+  }
+
   render() {
+    this.comments = [];
+    readComments(this.product.id, (comments) => {
+      this.comments = [...comments];
+    });
+
     return html`
       <section class="product">
         <header>
@@ -55,6 +77,25 @@ export class AppProduct extends Base {
           </button>
         </footer>
       </section>
+      <br />
+      <section>
+        <form @submit="${this.sendComment}">
+          <textarea></textarea>
+          <button>Send</button>
+        </form>
+        <ul>
+          ${this.comments.map(({ comment }) => html`<li>${comment}</li>`)}
+        </ul>
+      </section>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     `;
   }
 }
