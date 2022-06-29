@@ -51,8 +51,13 @@ export function readComments(productId, cb = () => {}) {
 }
 
 export function getUser() {
-  return onAuthStateChanged(auth, (user) => {
-    return user;
+  return auth.currentUser;
+}
+
+export function getAuthState(cb = () => {}) {
+  onAuthStateChanged(auth, (user) => {
+    if (user) return cb(user);
+    cb(false);
   });
 }
 

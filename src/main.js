@@ -12,7 +12,7 @@ import {
 import { getProducts, getProduct } from "./api/products";
 import "./views/app-home";
 import { getCart } from "./api/cart";
-import { getUser } from "./firebase";
+import { getAuthState, getUser } from "./firebase";
 
 (async (root) => {
   const skeleton = root.querySelector(".skeleton");
@@ -41,6 +41,19 @@ import { getUser } from "./firebase";
   const AppCart = main.querySelector("app-cart");
   const AppLogin = main.querySelector("app-login");
 
+  let isUserLogged = getUser();
+
+  getAuthState((user) => {
+    isUserLogged = user;
+
+    if (isUserLogged) {
+      const queryString = new URLSearchParams(location.search);
+
+      return page(queryString.get("from") || location.pathname);
+    }
+    page(`/login?from=${location.pathname}`);
+  });
+
   page("*", async (ctx, next) => {
     skeleton.removeAttribute("hidden");
 
@@ -61,9 +74,8 @@ import { getUser } from "./firebase";
       ...cartData,
     });
 
-    console.log(getUser());
-    if (!getUser() && ctx.path != "/login") {
-      page("/login");
+    if (!isUserLogged && ctx.pathname != "/login") {
+      return;
     }
 
     next();
